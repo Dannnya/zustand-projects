@@ -1,3 +1,4 @@
+import { Expense } from './components/Expense';
 import { RecipeApp } from './components/RecipeApp';
 
 
@@ -5,7 +6,9 @@ function App() {
 
   return (
     <div>
-      <RecipeApp />  
+      {/* <RecipeApp /> */}
+
+      <Expense />
     </div>
   )
 }
