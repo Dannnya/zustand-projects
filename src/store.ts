@@ -6,6 +6,19 @@ type CounterStore = {
     decrement: () => void;
 };
 
+interface RecipeType {
+    id: number;
+    name: string;
+    ingrediens: string[];
+    instruction: string;
+};
+
+interface RecipeStore {
+    recipes: RecipeType[];
+    addRecipe: (recipe: RecipeType) => void;
+    removeRecipe: (id: number) => void;
+}
+
 export const useCounter = create<CounterStore>((set) => ({
     count: 0,
 
@@ -13,3 +26,9 @@ export const useCounter = create<CounterStore>((set) => ({
     decrement: () => set((state) => ({ count: state.count - 1 })),
 
 }));
+
+export const useStore = create<RecipeStore>((set) => ({
+    recipes: [],
+    addRecipe: (recipe) => set((state) => ({ recipes: [...state.recipes, recipe] })),
+    removeRecipe: (id) => set((state) => ({ recipes: state.recipes.filter((recipe) => recipe.id !== id) })),
+})) 
