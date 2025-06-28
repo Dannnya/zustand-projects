@@ -51,9 +51,9 @@ export const PasswordGenerator = () => {
             
             {generatedPassword && (
                 <div>
-                    <p>{ generatedPassword }</p>
+                    <p>{generatedPassword}</p>
                 </div>
             )}
         </div>
-    )
+    );
 };

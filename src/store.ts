@@ -45,7 +45,20 @@ interface PasswordState {
     toggleUppercase: () => void;
     toggleLowercase: () => void;
     generatePassword: () => void;
-}
+};
+
+interface Meals {
+    idMeal: string;
+    strMeal: string;
+    strMealThumb: string;
+};
+
+interface StoreStateMeals {
+    meals: Meals[];
+    searchQuery: string;
+    setMeals: (meals: Meals[]) => void;
+    setSearchQuery: (query: string) => void;
+};
 
 export const useCounter = create<CounterStore>((set) => ({
     count: 0,
@@ -106,4 +119,11 @@ export const usePasswordStore = create<PasswordState>((set) => ({
 
         return { generatedPassword: password };
     }),
+}));
+
+export const useStoreMeals = create<StoreStateMeals>((set) => ({
+    meals: [],
+    searchQuery: '',
+    setMeals: (meals: Meals[]) => set({ meals }),
+    setSearchQuery: (query: string) => set({ searchQuery: query }),
 }));

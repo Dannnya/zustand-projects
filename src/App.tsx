@@ -1,4 +1,5 @@
 import { Expense } from './components/Expense';
+import { Meals } from './components/Meals';
 import { PasswordGenerator } from './components/PasswordGenerator';
 import { RecipeApp } from './components/RecipeApp';
 
@@ -14,6 +15,8 @@ function App() {
       <div className='flex items-center justify-center pt-10'>
         <PasswordGenerator />
       </div>
+
+      <Meals />
     </div>
   )
 }
