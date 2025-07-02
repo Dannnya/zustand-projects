@@ -60,6 +60,20 @@ interface StoreStateMeals {
     setSearchQuery: (query: string) => void;
 };
 
+interface FormFields {
+    label: string;
+    type: 'text' | 'number' | 'password' | 'textarea' | 'date' | 'file';
+    value: string;
+};
+
+interface FormStoreState {
+    formFields: FormFields[];
+    addField: (field: FormFields) => void;
+    removeField: (index: number) => void;
+    updateField: (index: number, updatedField: FormFields) => void;
+    resetForm: () => void;
+}
+
 export const useCounter = create<CounterStore>((set) => ({
     count: 0,
 
@@ -126,4 +140,17 @@ export const useStoreMeals = create<StoreStateMeals>((set) => ({
     searchQuery: '',
     setMeals: (meals: Meals[]) => set({ meals }),
     setSearchQuery: (query: string) => set({ searchQuery: query }),
+}));
+
+export const useFormFields = create<FormStoreState>((set) => ({
+    formFields: [],
+
+    addField: (field) => set((state) => ({
+        formFields: [...state.formFields, field]
+    })),
+    removeField: (index) => set((state) => ({ formFields: state.formFields.filter((_, i) => i !== index) })),
+    updateField: (index, updatedField) => set((state) => ({
+        formFields: state.formFields.map((field, i) => i === index ? updatedField : field)
+    })),
+    resetForm: () => set({ formFields: [] })
 }));

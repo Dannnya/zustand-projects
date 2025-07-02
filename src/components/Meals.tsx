@@ -32,7 +32,10 @@ export const Meals = () => {
                 {filteredMeals.length >= 0 ? (
                     filteredMeals.map(meal => (
                         <div key={meal.idMeal}>
-                            <img src={meal.strMealThumb} alt={meal.strMeal} width={300}  className='pt-5'/>
+                            <img src={meal.strMealThumb} alt={meal.strMeal} width={300} className='pt-5' />
+                            
+                            <h4 className='font-bold'>{meal.strMeal}</h4>
+                            <p>Seafood Menu</p>
                         </div>
                     ))
                 ): (
