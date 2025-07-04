@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
 import { useFormFields } from '../store';
+import FormField from './FormField';
 
 interface FieldsType {
     label: string;
@@ -28,6 +29,14 @@ export const FormBuilder = () => {
         }));
     };
 
+    const handleFieldUpdate = (index: number, updateField: newFields) => {
+        updateField(index, updateField);
+    };
+
+    const handleFieldRemove = (index: number) => {
+        removeField(index);
+    };
+
     return (
         <div>
             <h4>Form Builder</h4>
@@ -43,7 +52,7 @@ export const FormBuilder = () => {
                 <select
                     name='type'
                     value={newFields.type}
-                    onChange={ handleChange }
+                    onChange={ handleFieldChange }
                     
                 >
                     <option value='text'>Text</option>
@@ -63,9 +72,10 @@ export const FormBuilder = () => {
             <form>
                 {formFields.map((field, index) => (
                     <FormField
-                        key={index}
+                        key={ index }
                         field={field}
-                        onUpdate={handleFieldUpdate}
+                        index ={ index }
+                        onUpdate={ handleFieldUpdate }
                         onRemove={ handleFieldRemove }
                     />
                 ))}
