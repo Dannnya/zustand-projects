@@ -87,6 +87,26 @@ interface TodoStore {
     removeTodo: (id: number) => void;
 };
 
+interface Note {
+    text: string;
+    color: string;
+};
+
+interface NoteStateStore {
+    notes: Note[],
+    search: string;
+    editorContent: string;
+    noteColor: string;
+    currentNoteIndex: number | null;
+    setNotes: (updatedNotes: Note[]) => void;
+    setSearch: (searchValue: string) => void;
+    setEditorContent: (content: string) => void;
+    setNoteColor: (color: string) => void;
+    setCurrentNoteIndex: (index: number | null) => void;
+    addOrUpdateNote: () => void;
+    selectNote: (index: number) => void;
+};
+
 export const useCounter = create<CounterStore>((set) => ({
     count: 0,
 
@@ -175,3 +195,44 @@ export const useTodoListStore = create<TodoStore>((set) => ({
     removeTodo: (id) => set((state) => ({ todos: state.todos.filter(todo => todo.id !== id) })),
     toggleTodo: (id) => set((state) => ({ todos: state.todos.map((todo) => todo.id === id ? { ...todo, completed: !todo.completed } : todo) }))
 }));
+
+export const useNotesStore = create<NoteStateStore>((set) => ({
+    notes: [],
+    search: '',
+    editorContent: '',
+    noteColor: '#fff',
+    currentNoteIndex: null,
+  
+    setNotes: (notes) => set({ notes }),
+    setSearch: (search) => set({ search }),
+    setEditorContent: (content) => set({ editorContent: content }),
+    setNoteColor: (color) => set({ noteColor: color }),
+    setCurrentNoteIndex: (index) => set({ currentNoteIndex: index }),
+  
+    addOrUpdateNote: () => set((state) => {
+      const { editorContent, noteColor, currentNoteIndex, notes } = state;
+      if (!editorContent.trim()) return {};
+      if (currentNoteIndex !== null) {
+        const updatedNotes = [...notes];
+        updatedNotes[currentNoteIndex] = { text: editorContent, color: noteColor };
+        return {
+          notes: updatedNotes,
+          editorContent: '',
+          noteColor: '#fff',
+          currentNoteIndex: null,
+        };
+      }
+      return {
+        notes: [...notes, { text: editorContent, color: noteColor }],
+        editorContent: '',
+        noteColor: '#fff',
+        currentNoteIndex: null,
+      };
+    }),
+  
+    selectNote: (index) => set((state) => ({
+      currentNoteIndex: index,
+      editorContent: state.notes[index].text,
+      noteColor: state.notes[index].color,
+    })),
+  }));
