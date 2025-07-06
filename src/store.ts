@@ -72,7 +72,20 @@ interface FormStoreState {
     removeField: (index: number) => void;
     updateField: (index: number, updatedField: FormFields) => void;
     resetForm: () => void;
-}
+};
+
+interface Todo {
+    id: number;
+    text: string;
+    completed: boolean;
+};
+
+interface TodoStore {
+    todos: Todo[],
+    addTodo: (todo: Todo) => void;
+    toggleTodo: (id: number) => void;
+    removeTodo: (id: number) => void;
+};
 
 export const useCounter = create<CounterStore>((set) => ({
     count: 0,
@@ -153,4 +166,12 @@ export const useFormFields = create<FormStoreState>((set) => ({
         formFields: state.formFields.map((field, i) => i === index ? updatedField : field)
     })),
     resetForm: () => set({ formFields: [] })
+}));
+
+export const useTodoListStore = create<TodoStore>((set) => ({
+    todos: [],
+
+    addTodo: (todo) => set((state) => ({ todos: [...state.todos, todo] })),
+    removeTodo: (id) => set((state) => ({ todos: state.todos.filter(todo => todo.id !== id) })),
+    toggleTodo: (id) => set((state) => ({ todos: state.todos.map((todo) => todo.id === id ? { ...todo, completed: !todo.completed } : todo) }))
 }));

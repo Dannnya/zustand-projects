@@ -3,6 +3,7 @@ import { FormBuilder } from './components/FormBuilder';
 import { Meals } from './components/Meals';
 import { PasswordGenerator } from './components/PasswordGenerator';
 import { RecipeApp } from './components/RecipeApp';
+import { TodoList } from './components/TodoList';
 
 
 function App() {
@@ -19,7 +20,9 @@ function App() {
 
       {/* <Meals /> */}
 
-      <FormBuilder />
+      {/* <FormBuilder /> */}
+
+      <TodoList />
     </div>
   )
 }
