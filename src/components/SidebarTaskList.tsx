@@ -4,7 +4,7 @@ import { useTaskStore } from '../store'
 
 function SidebarTaskList() {
 
-  const { openListModal, openWorkspaceModal } = useTaskStore();
+  const { lists, workspaces, openListModal, openWorkspaceModal } = useTaskStore();
 
   return (
     <div className='w-60 bg-gray-100 flex flex-col'>
@@ -14,6 +14,16 @@ function SidebarTaskList() {
             Lists
           </h4>
           {/* Render Lists */}
+
+          <ul>
+            {lists.map((list, index) => (
+              <li key={index}>
+                <span>{list.emoji}</span>
+                { list.name }
+              </li>
+            ))}
+          </ul>
+
           <button onClick={ openListModal } className='flex justify-center items-center mt-[1rem]'>
             <FaPlus className='mr-2' /> List
           </button>
@@ -23,9 +33,18 @@ function SidebarTaskList() {
             Workspaces
           </h4>
 
+          <ul>
+            {workspaces.map((workspace, index) => (
+              <li key={index}>
+                <span>{workspace.emoji}</span>
+                { workspace.name }
+              </li>
+            ))}
+          </ul>
+
           {/* Render Workspaces */}
           <button onClick={ openWorkspaceModal } className='flex justify-center items-center mt-[1rem]'>
-          <FaPlus className='mr-2' /> Workspaces
+            <FaPlus className='mr-2' /> Workspaces
           </button>
         </div>
       </div>
