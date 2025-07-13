@@ -9,12 +9,14 @@ import SidebarTaskList from './components/SidebarTaskList';
 // import { RecipeApp } from './components/RecipeApp';
 // import { TodoList } from './components/TodoList';
 import { useTaskStore } from './store'
+import QiuzLayout from './components/QiuzLayout';
 
 function App() {
   const { todos, editIndex, editText, dropdownIndex, handleEdit, handleDropdownClick,
     deleteTodo, setEditIndex, setEditText, handleUpdate } = useTaskStore();
   
   return (
+    <div>
     <div className='flex h-screen'>
       {/* <RecipeApp /> */}
 
@@ -102,6 +104,9 @@ function App() {
           </ul>
         </div>
       </div>
+      </div>
+
+      <QiuzLayout/>
     </div>
   )
 }
