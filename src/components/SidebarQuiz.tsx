@@ -13,7 +13,7 @@ function SidebarQuiz() {
               {questions.map((_, index) => (
                   <li key={index} className='mb-2 items-center'>
                       <FaCheckCircle
-                          className={`{mr-2 ${index <= currentQuestion ? 'text-green-500' : 'text-gray-500'}}`}
+                        className={`mr-2 ${index < currentQuestion ? 'text-green-500' : 'text-gray-500'}`}
                       />
                       
                       <span>Question { index + 1 }</span>
@@ -24,4 +24,4 @@ function SidebarQuiz() {
   )
 }
 
-export default SidebarQuiz
+export default SidebarQuiz;

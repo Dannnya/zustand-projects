@@ -547,10 +547,10 @@ export const useQuizStore = create<QuizStore>((set) => ({
           }
         });
 
-        return { showScore: true, score };
+        return { showScore: true, score, currentQuestion: state.currentQuestion + 1 };
       }
 
-      return { currentQuestion: state.currentQuestion + 1 };
+      return { currentQuestion: state.currentQuestion + 1  };
     }),
 
   prevQuestion: () =>

@@ -15,6 +15,24 @@ function Question() {
 
     const handleSubmit = () => nextQuestion();
 
+    if (showScore) {
+        return (
+            <div className='w-3/4 p-6'>
+                <h4 className='text-2xl font-semibold'>Your Score</h4>
+                <p className="mt-4 text-lg">
+                    You scored { score } out of { questions.length }
+                </p>
+
+                <button
+                    onClick={ resetQuiz }
+                    className='mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+                >
+                    Restart
+                </button>
+            </div>
+        )
+    }
+
 
     return (
         <div className='w-3/4 p-6'>
@@ -36,8 +54,8 @@ function Question() {
                 ))}
             </div>
 
-            <div className='flex gap-6'>
-                 <div className="mt-6">
+            <div className='flex'>
+                <div className="mt-6">
                 {currentQuestion > 0 && (
                     <button
                         onClick={ prevQuestion } 
@@ -46,17 +64,18 @@ function Question() {
                         Previous
                     </button>
                 )}
-            </div>
 
-            {currentQuestion < questions.length - 1 ? (
+            { currentQuestion < questions.length - 1  ? (
             <button  onClick={ handleSubmit } className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'>Next</button>
-            ): (
+            ) : (
                         <button
+                            onClick={ handleSubmit }
                             className='px-4 py-2 bg-green-500 hover:bg-green-600 text-white'
                         >
                             Submit
                         </button>
-            )}
+                    )}
+                </div>
            </div>
         </div>
     )
