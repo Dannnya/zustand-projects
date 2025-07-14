@@ -180,6 +180,31 @@ interface QuizStore {
   resetQuiz: () => void;
 };
 
+import { create } from "zustand";
+
+interface ProductState {
+  productStates: Record<
+    string,
+    {
+      currentImage: string;
+      hover: boolean;
+    }
+  >;
+  setProductImage: (productId: string, image: string) => void;
+  setProductHover: (productId: string, hover: boolean) => void;
+  initializeProduct: (productId: string, initialImage: string) => void;
+}
+
+interface FilterState {
+  selectedCountries: string[];
+  selectedColors: string[];
+  selectedPriceRange: { min: number; max: number } | null;
+  setSelectedCountries: (countries: string[]) => void;
+  setSelectedColors: (colors: string[]) => void;
+  setSelectedPriceRange: (range: { min: number; max: number } | null) => void;
+  clearFilters: () => void;
+}
+
 export const useCounter = create<CounterStore>((set) => ({
     count: 0,
 
@@ -550,7 +575,7 @@ export const useQuizStore = create<QuizStore>((set) => ({
         return { showScore: true, score, currentQuestion: state.currentQuestion + 1 };
       }
 
-      return { currentQuestion: state.currentQuestion + 1  };
+      return { currentQuestion: state.currentQuestion + 1 };
     }),
 
   prevQuestion: () =>
@@ -565,5 +590,43 @@ export const useQuizStore = create<QuizStore>((set) => ({
       score: 0,
       showScore: false,
     })),
+}));
+
+export const useProductStore = create<ProductState>((set) => ({
+  productStates: {},
+  setProductImage: (productId, image) => set((state) => ({
+    productStates: {
+      ...state.productStates,
+      [productId]: { ...state.productStates[productId], currentImage: image }
+    }
+  })),
+
+  setProductHover: (productId, hover) => set((state) => ({
+    productStates: {
+      ...state.productStates, [productId]: { ...state.productStates[productId], hover }
+    }
+  })),
+  
+  initializeProduct: (productId, initialImage) => set((state) => ({
+    productStates: {
+      ...state.productStates, [productId]: { currentImage: initialImage, hover: false }
+    }
+  })),
+}));
+
+export const useFilterStore = create<FilterState>((set) => ({
+  selectedCountries: [],
+  selectedColors: [],
+  selectedPriceRange: null,
+
+  setSelectedCountries: (countries) => set({ selectedCountries: countries }),
+  setSelectedColors: (colors) => set({ selectedCololrs: colors }),
+  setSelectedPriceRange: (range) => set({ selectedPriceRange: range }),
+
+  clearFilters: () => set({
+    selectedCountries: [],
+    selectedColors: [],
+    selectedPriceRange: null,
+  }),
 }));
     
