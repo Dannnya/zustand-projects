@@ -620,7 +620,7 @@ export const useFilterStore = create<FilterState>((set) => ({
   selectedPriceRange: null,
 
   setSelectedCountries: (countries) => set({ selectedCountries: countries }),
-  setSelectedColors: (colors) => set({ selectedCololrs: colors }),
+  setSelectedColors: (colors) => set({ selectedColors: colors }),
   setSelectedPriceRange: (range) => set({ selectedPriceRange: range }),
 
   clearFilters: () => set({
