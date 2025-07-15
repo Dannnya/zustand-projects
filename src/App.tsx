@@ -1,23 +1,27 @@
 // import { Expense } from './components/Expense';
 // import { FormBuilder } from './components/FormBuilder';
 // import { Meals } from './components/Meals';
-import { MdMoreVert } from 'react-icons/md';
-import { MainArea } from './components/MainArea';
+// import { MdMoreVert } from 'react-icons/md';
+// import { MainArea } from './components/MainArea';
 // import { Note } from './components/Note';
-import SidebarTaskList from './components/SidebarTaskList';
+// import SidebarTaskList from './components/SidebarTaskList';
 // import { PasswordGenerator } from './components/PasswordGenerator';
 // import { RecipeApp } from './components/RecipeApp';
 // import { TodoList } from './components/TodoList';
-import { useTaskStore } from './store'
-import QiuzLayout from './components/QiuzLayout';
+// import { useTaskStore } from './store'
+// import QiuzLayout from './components/QiuzLayout';
+import ProductCart from './components/ProductCart.js';
+import SidebarProducts from './components/SidebarProducts';
+import { data } from './db/data.js';
 
 function App() {
-  const { todos, editIndex, editText, dropdownIndex, handleEdit, handleDropdownClick,
-    deleteTodo, setEditIndex, setEditText, handleUpdate } = useTaskStore();
+  console.log(data);
+  // const { todos, editIndex, editText, dropdownIndex, handleEdit, handleDropdownClick,
+  //   deleteTodo, setEditIndex, setEditText, handleUpdate } = useTaskStore();
   
   return (
     <div>
-    <div className='flex h-screen'>
+    {/* <div className='flex h-screen'> */}
       {/* <RecipeApp /> */}
 
       {/* <Expense /> */}
@@ -34,7 +38,7 @@ function App() {
 
       {/* <Note /> */}
 
-      <SidebarTaskList />
+      {/* <SidebarTaskList />
 
       <div className="flex-1 p-6">
         <MainArea />
@@ -106,7 +110,14 @@ function App() {
       </div>
       </div>
 
-      <QiuzLayout/>
+      <QiuzLayout /> */}
+      
+      <SidebarProducts />
+      <div className="p-4 flex flex-wrap justify-center items-center">
+        {data.map((product) => (
+          <ProductCart key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   )
 }

@@ -180,8 +180,6 @@ interface QuizStore {
   resetQuiz: () => void;
 };
 
-import { create } from "zustand";
-
 interface ProductState {
   productStates: Record<
     string,
