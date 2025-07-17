@@ -13,14 +13,42 @@
 import ProductCart from './components/ProductCart.js';
 import SidebarProducts from './components/SidebarProducts';
 import { data } from './db/data.js';
+import { useFilterStore } from './store.js';
+
+interface Product {
+  id: string;
+  country: string;
+  img: Record<string, string>;
+  price: number;
+};
 
 function App() {
-  console.log(data);
   // const { todos, editIndex, editText, dropdownIndex, handleEdit, handleDropdownClick,
   //   deleteTodo, setEditIndex, setEditText, handleUpdate } = useTaskStore();
+    const {
+      selectedCountries,
+      selectedColors,
+      selectedPriceRange
+    } = useFilterStore((state) => state);
   
+    const filteredData = data.filter((item: Product) => {
+    const matchesColor =
+      selectedColors.length === 0 ||
+      Object.keys(item.img).some((color) => selectedColors.includes(color));
+
+    const matchesCountry =
+      selectedCountries.length === 0 ||
+      selectedCountries.includes(item.country);
+
+    const matchesPrice = selectedPriceRange
+      ? item.price >= selectedPriceRange.min &&
+        item.price <= selectedPriceRange.max
+      : true;
+
+    return matchesColor && matchesCountry && matchesPrice;
+  });
   return (
-    <div>
+    <>
     {/* <div className='flex h-screen'> */}
       {/* <RecipeApp /> */}
 
@@ -114,11 +142,11 @@ function App() {
       
       <SidebarProducts />
       <div className="p-4 flex flex-wrap justify-center items-center">
-        {data.map((product) => (
+        {filteredData.map((product: any) => (
           <ProductCart key={product.id} product={product} />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 
